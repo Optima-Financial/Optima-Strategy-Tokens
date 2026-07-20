@@ -54,7 +54,9 @@ async function main() {
   console.log("deploy tx:", tx?.hash);
   await c.waitForDeployment();
   const addr = await c.getAddress();
-  await provider.waitForTransaction(tx!.hash, 2);
+  // NB: provider.waitForTransaction is NOT implemented by HardhatEthersProvider —
+  // use tx.wait() (the OPSXRP deploy crashed on this line post-broadcast).
+  await tx!.wait(2);
 
   const t = c as any;
   const [name, symbol, decimals, total, rbal, dbal] = await Promise.all([

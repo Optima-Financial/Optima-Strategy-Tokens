@@ -23,6 +23,8 @@ const config: HardhatUserConfig = {
   },
   // Etherscan V2 key works across chains (incl. Arbitrum).
   etherscan: { apiKey: ETHERSCAN_API_KEY },
+  // Keyless fallback verifier; Blockscout imports Sourcify matches automatically.
+  sourcify: { enabled: true },
 };
 
 export default config;

@@ -21,6 +21,21 @@ contracts (`ERC20` + `ERC20Permit`) so the only custom code is the constructor.
 
 Source: [`contracts/OPSBTC.sol`](contracts/OPSBTC.sol).
 
+### OPSXRP — "Enhanced XRP Perp Momentum"
+
+| | |
+|---|---|
+| Network | **Arbitrum One** (chain id 42161) |
+| Contract | [`0x1ff1c0189df884d25d8221b93d77d910d894abcf`](https://arbiscan.io/address/0x1ff1c0189df884d25d8221b93d77d910d894abcf) |
+| Symbol / decimals | `OPSXRP` / 18 |
+| Total supply | 1,000,000,000 (fixed, minted at deploy) |
+| Standard | ERC20 + ERC20Permit (EIP-2612) |
+| Admin surface | none (no owner / mint / pause / fee) |
+
+Source: [`contracts/OPSXRP.sol`](contracts/OPSXRP.sol). Verified on
+[Blockscout](https://arbitrum.blockscout.com/address/0x1ff1c0189df884d25d8221b93d77d910d894abcf);
+Arbiscan verification pending a valid `ETHERSCAN_API_KEY`.
+
 ## Develop
 
 ```bash
