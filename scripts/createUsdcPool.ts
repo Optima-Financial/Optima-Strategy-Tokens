@@ -4,9 +4,13 @@
 // the uni-arb LP subsystem (it deposits only while the pool price is within its tolerance of NAV).
 // The configured deployer account only pays gas. Same fee tier as OPSBTC's pool (0.3%).
 //
+// NAV_USD is the PER-TOKEN price (strategy_nav_snapshots.token_price, e.g. 9.92), NOT the basket NAV
+// (strategies.current_nav, e.g. 10158), which would price the pool ~1000x too high. OPSBTC's pool trades
+// at its token_price.
+//
 // Read-only preflight by default. Set DEPLOY=1 to actually broadcast.
 //
-//   TOKEN_ADDRESS=0x... NAV_USD=10158.52684618 npx hardhat run scripts/createUsdcPool.ts --network arbitrumOne
+//   TOKEN_ADDRESS=0x... NAV_USD=9.92180207 npx hardhat run scripts/createUsdcPool.ts --network arbitrumOne
 //   DEPLOY=1 TOKEN_ADDRESS=0x... NAV_USD=... npx hardhat run scripts/createUsdcPool.ts --network arbitrumOne  # IRREVERSIBLE
 import { ethers } from "hardhat";
 
@@ -51,7 +55,7 @@ function usdcPerToken(sqrtP: bigint, tokenIsToken0: boolean, tokenDec: number): 
 async function main() {
   const tokenAddr = ethers.getAddress(process.env.TOKEN_ADDRESS || "");
   const nav = process.env.NAV_USD || "";
-  if (!/^\d+(\.\d+)?$/.test(nav)) throw new Error("NAV_USD must be a positive decimal, e.g. 10158.52684618");
+  if (!/^\d+(\.\d+)?$/.test(nav)) throw new Error("NAV_USD must be the per-token price, e.g. 9.92180207");
 
   const [deployer] = await ethers.getSigners();
   if (!deployer) throw new Error("no deployer account — set PRIVATE_KEY in .env");
